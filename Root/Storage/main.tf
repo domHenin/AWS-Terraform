@@ -15,3 +15,12 @@ resource "aws_s3_bucket" "tf_code" {
     Name = "tf_bucket"
   }
 }
+
+//TODO::
+//random_id: tf_bucket_id
+//  length 2
+//aws_bucket: tf_code
+//  use variables- refrence random_id.dec
+//set acl -> private
+//set destroy
+//set tag -> tf_bucket
