@@ -1,9 +1,10 @@
 #-----storage/outputs.tf-----
 
-# Output
+# Output Bucket Name
 output "bucketname" {
   value = "${aws_s3_bucket.tf_code.id}"
 }
+
 
 //TODO:
 //output: bucketname
