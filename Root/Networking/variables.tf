@@ -6,7 +6,7 @@ variable "vpc_cidr" {
 //  default = "10.123.0.0/16"
 }
 
-
+# Variable for Public Cidrs
 variable "public_cidrs" {
   type = "list"
 //  default = [
@@ -15,6 +15,7 @@ variable "public_cidrs" {
 //  ]
 }
 
+# Variable for Access IP
 variable "accessip" {
 //  default = "0.0.0.0/0"
 }
