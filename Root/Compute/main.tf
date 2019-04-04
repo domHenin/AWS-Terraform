@@ -21,6 +21,24 @@ resource "aws_key_pair" "tf_auth" {
   public_key = "${file(var.public_key_path)}"
 }
 
+# Build EC2 Instance
+resource "aws_instance" "tf_server" {
+  count = "${var.instance_count}"
+  instance_type = "${var.instance_type}"
+  ami = "${data.aws_ami.server_ami.id}"
+
+  tags {
+    Name = "tf_server-${count.index +1}"
+  }
+
+  key_name = "${aws_key_pair.tf_auth.id}"
+  vpc_security_group_ids = ["${var.security_group}"]
+
+  subnet_id = "${element(var.subnet, count.index)}"
+
+//  user_data =
+}
+
 //TODO:
 //data: server_ami
 //  - most-recent:: true
@@ -33,3 +51,11 @@ resource "aws_key_pair" "tf_auth" {
 //resource: tf_auth
 //  - key name: use variable
 //  - public key: use variable
+//resource: tf_server
+//  - count: use variable
+//  - instance type: use variable
+//  - ami: refrence server_ami.id
+//  - tags: refrence tf_server-${count.index+1
+//  - key name: refrence key_pair.tf_auth.id
+//  - vpc security group: use variable
+//  - subnet id: element:: use variabel, and count index
