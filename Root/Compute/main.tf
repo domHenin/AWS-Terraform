@@ -68,3 +68,8 @@ resource "aws_instance" "tf_server" {
 //  - key name: refrence key_pair.tf_auth.id
 //  - vpc security group: use variable
 //  - subnet id: element:: use variabel, and count index
+//  -user data: ${data.template_file.user-init.*.rendered[cont.index]}
+//data: user_init (template_file)
+//  - count: 2
+//  - template: file("${path.module}/userdata.tpl")
+//  - vars: firewall subnet: element:: use variables(subnet_ips), count index
