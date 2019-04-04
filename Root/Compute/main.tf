@@ -21,6 +21,15 @@ resource "aws_key_pair" "tf_auth" {
   public_key = "${file(var.public_key_path)}"
 }
 
+data "template_file" "user-init" {
+  count = 2
+  template = "${file("${path.module}/userdata.tpl")}"
+
+  vars {
+    firewall_subnets = "${element("${var.subnet_ips}", count.index)}"
+  }
+}
+
 # Build EC2 Instance
 resource "aws_instance" "tf_server" {
   count = "${var.instance_count}"
@@ -36,7 +45,7 @@ resource "aws_instance" "tf_server" {
 
   subnet_id = "${element(var.subnet, count.index)}"
 
-//  user_data =
+  user_data = "${data.template_file.user-init.*.rendered[cont.index]}"
 }
 
 //TODO:
