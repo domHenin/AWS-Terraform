@@ -37,10 +37,6 @@ variable "instance_count" {
   default = 1
 }
 
-
-
-
-
 //TODO:
 //variable: aws_region
 //variable: project_name
@@ -50,3 +46,4 @@ variable "instance_count" {
 //
 //variable public_cidrs
 //  - set type: list
+

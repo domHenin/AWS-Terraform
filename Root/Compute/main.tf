@@ -5,25 +5,25 @@ data "aws_ami" "server_ami" {
   most_recent = true
 
   filter {
-    name = "owner-alias"
+    name   = "owner-alias"
     values = ["amazon"]
   }
 
   filter {
-    name = "name"
+    name   = "name"
     values = ["amzn-ami-hvm*-x86_64-gp2"]
   }
 }
 
 # Build Key Pair
 resource "aws_key_pair" "tf_auth" {
-  key_name = "${var.key_name}"
+  key_name   = "${var.key_name}"
   public_key = "${var.public_key_path}"
 }
 
 # Build Template File
 data "template_file" "user-init" {
-  count = 2
+  count    = 2
   template = "${file("${path.module}/userdata.tpl")}"
 
   vars {
@@ -33,15 +33,15 @@ data "template_file" "user-init" {
 
 # Build EC2 Instance
 resource "aws_instance" "tf_server" {
-  count = "${var.instacne_count}"
-  ami = "${data.aws_ami.server_ami.id}"
+  count         = "${var.instance_count}"
+  ami           = "${data.aws_ami.server_ami.id}"
   instance_type = "${var.instance_type}"
 
   tags {
     Name = "${aws_instance.tf_server}-${count.index+1}"
   }
 
-  key_name = "${aws_key_pair.tf_auth.id}"
+  key_name               = "${aws_key_pair.tf_auth.id}"
   vpc_security_group_ids = ["${var.security_group}"]
 
   subnet_id = "${element(var.subnets, count.index)}"
@@ -74,3 +74,4 @@ resource "aws_instance" "tf_server" {
 //  - count: 2
 //  - template: file("${path.module}/userdata.tpl")
 //  - vars: firewall subnet: element:: use variables(subnet_ips), count index
+

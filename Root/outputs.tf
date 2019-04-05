@@ -1,19 +1,16 @@
 #-----root/output.tf-----
 
-
 #-----storage/outputs
 # Output Bucket Name
 output "Bucket Name" {
   value = "${module.storage.bucketname}"
 }
 
-
 #-----networking/output
 # Output Public Subnets
 output "Public Subnets" {
   value = "${join(", ", module.networking.public_subnets)}"
 }
-
 
 #Output Subnet IPs
 output "Subnet IPs" {
@@ -50,3 +47,4 @@ output "Public Instance IPs" {
 //  set value: reference compute modules server_id
 //output: Public Instance IPs
 //  set value: reference copute modues server_ip
+
