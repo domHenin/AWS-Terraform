@@ -2,12 +2,12 @@
 
 # Variable for Key Name
 variable "key_name" {
-  default = "tfkey"
+//  default = "tfkey"
 }
 
 # Variable for Public Key Path
 variable "public_key_path" {
-  default = "/home/ec3-user/.ssh/id_rsa.pub"
+//  default = "/home/ec3-user/.ssh/id_rsa.pub"
 }
 
 # Variable for Subnet IPs
@@ -25,7 +25,9 @@ variable "instance_type" {}
 variable "security_group" {}
 
 # Variable for Subnets
-variable "subnets" {}
+variable "subnets" {
+  type = "list"
+}
 
 //TODO:
 //varibale: key_name
@@ -38,4 +40,4 @@ variable "subnets" {}
 //variable: instance_count
 //variable: instance_type
 //variable: security_group
-//variabel: subnets
+//variabel: subnets = list
