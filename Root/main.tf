@@ -5,6 +5,14 @@ provider "aws" {
   region = "${var.aws_region}"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "lat-terraform-course-state"
+    key    = "terraform/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
 # Deploy Storage Resource
 module "storage" {
   source = "./storage"
@@ -22,6 +30,11 @@ module "networking" {
 //TODO::
 //create provider aws
 //  region: use variable
+//create terraform:
+//  backend: s3
+//   - bucket: lat-terraform-course-state
+//   - key: terraform/terraform.tfstate
+//   - region: us-east-1
 //create module: storage
 //  set source to ./storage
 //  set project name to a variable
